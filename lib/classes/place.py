@@ -6,7 +6,7 @@ class Place:
         self.cursor = self.conn.cursor()
 
     def add_place(self, name, type, city_id):
-        self.cursor.execute("INSERT INTO places (name, city_id) VALUES (?, ?)", (name, type, city_id))
+        self.cursor.execute("INSERT INTO places (name, type, city_id) VALUES (?, ?, ?)", (name, type, city_id))
         self.conn.commit()
         print(f"Place '{name}' added successfully.")
 
@@ -24,6 +24,17 @@ class Place:
                 print(f"- {place[1]}")
         else:
             print("No places found.")
+
+    def filter_places_by_type(self, object_type):
+        self.cursor.execute("SELECT * FROM places WHERE type = ?", (object_type,))
+        filtered_places = self.cursor.fetchall()
+
+        if filtered_places:
+            print("Filtered places:")
+            for place in filtered_places:
+                print(f"- {place[1]} (Type: {place[3]})")
+        else:
+            print("No places found for the specified type.")
 
     def close_connection(self):
         self.conn.close()

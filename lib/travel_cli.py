@@ -48,6 +48,11 @@ def search_places(args):
     place_manager.search_places(args.search_term)
     place_manager.close_connection()
 
+def filter_places(args):
+    place_manager = Place()
+    place_manager.filter_places_by_type(args.object_type)
+    place_manager.close_connection()
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Travel Database CLI')
 
@@ -98,6 +103,11 @@ if __name__ == '__main__':
     search_places_parser = subparsers.add_parser('search-places', help='Search for places')
     search_places_parser.add_argument('search_term', type=str, help='Search term')
     search_places_parser.set_defaults(func=search_places)
+
+    # Filter Places command
+    filter_places_parser = subparsers.add_parser('filter-places', help='Filter places by type')
+    filter_places_parser.add_argument('object_type', type=str, help='Object type')
+    filter_places_parser.set_defaults(func=filter_places)
 
     args = parser.parse_args()
 
