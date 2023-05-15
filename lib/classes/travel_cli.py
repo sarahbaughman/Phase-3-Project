@@ -1,7 +1,13 @@
+
+#!/usr/bin/env python3
+
 import argparse
 from country import Country
 from city import City
 from place import Place
+
+if __name__ == '__main__':
+    pass
 
 def create_country(args):
     country_manager = Country()
