@@ -27,3 +27,14 @@ class City:
 
     def close_connection(self):
         self.conn.close()
+
+    def search_cities(self, search_term):
+        self.cursor.execute("SELECT * FROM cities WHERE name LIKE ?", ('%' + search_term + '%',))
+        cities = self.cursor.fetchall()
+
+        if cities:
+            print("Search results:")
+            for city in cities:
+                print(f"- {city[1]} (Country ID: {city[2]})")
+        else:
+            print("No cities found.")
