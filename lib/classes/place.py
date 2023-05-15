@@ -5,8 +5,8 @@ class Place:
         self.conn = sqlite3.connect('database.db')
         self.cursor = self.conn.cursor()
 
-    def add_place(self, name, city_id):
-        self.cursor.execute("INSERT INTO places (name, city_id) VALUES (?, ?)", (name, city_id))
+    def add_place(self, name, type, city_id):
+        self.cursor.execute("INSERT INTO places (name, city_id) VALUES (?, ?)", (name, type, city_id))
         self.conn.commit()
         print(f"Place '{name}' added successfully.")
 

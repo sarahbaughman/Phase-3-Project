@@ -5,8 +5,8 @@ class Country:
         self.conn = sqlite3.connect('database.db')
         self.cursor = self.conn.cursor()
 
-    def add_country(self, name):
-        self.cursor.execute("INSERT INTO countries (name) VALUES (?)", (name,))
+    def add_country(self, name, year):
+        self.cursor.execute("INSERT INTO countries (name) VALUES (?)", (name, year))
         self.conn.commit()
         print(f"Country '{name}' added successfully.")
 
