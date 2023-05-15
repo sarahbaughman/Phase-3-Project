@@ -6,7 +6,7 @@ class City:
         self.cursor = self.conn.cursor()
 
     def add_city(self, name, country_id):
-        self.cursor.execute("INSERT INTO cities (name, country_id) VALUES (?, ?)", (name, country_id))
+        self.cursor.execute("INSERT INTO cities (name, country_id) VALUES (?, ?, ?)", (name, country_id))
         self.conn.commit()
         print(f"City '{name}' added successfully.")
 
