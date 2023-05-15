@@ -13,6 +13,11 @@ def list_countries(args):
     country_manager.list_countries()
     country_manager.close_connection()
 
+def search_countries(args):
+    country_manager = Country()
+    country_manager.search_countries(args.search_term)
+    country_manager.close_connection()
+
 def create_city(args):
     city_manager = City()
     city_manager.add_city(args.name, args.country_id)
@@ -23,6 +28,11 @@ def list_cities(args):
     city_manager.list_cities(args.country_id)
     city_manager.close_connection()
 
+def search_cities(args):
+    city_manager = City()
+    city_manager.search_cities(args.search_term)
+    city_manager.close_connection()
+
 def create_place(args):
     place_manager = Place()
     place_manager.add_place(args.name, args.city_id)
@@ -31,6 +41,11 @@ def create_place(args):
 def list_places(args):
     place_manager = Place()
     place_manager.list_places(args.city_id)
+    place_manager.close_connection()
+
+def search_places(args):
+    place_manager = Place()
+    place_manager.search_places(args.search_term)
     place_manager.close_connection()
 
 if __name__ == '__main__':
@@ -47,6 +62,11 @@ if __name__ == '__main__':
     list_countries_parser = subparsers.add_parser('list-countries', help='List all countries')
     list_countries_parser.set_defaults(func=list_countries)
 
+    # Search Countries command
+    search_countries_parser = subparsers.add_parser('search-countries', help='Search for countries')
+    search_countries_parser.add_argument('search_term', type=str, help='Search term')
+    search_countries_parser.set_defaults(func=search_countries)
+
     # Create City command
     create_city_parser = subparsers.add_parser('create-city', help='Create a new city')
     create_city_parser.add_argument('name', type=str, help='City name')
@@ -58,6 +78,11 @@ if __name__ == '__main__':
     list_cities_parser.add_argument('country_id', type=int, nargs='?', help='ID of the country')
     list_cities_parser.set_defaults(func=list_cities)
 
+    # Search Cities command
+    search_cities_parser = subparsers.add_parser('search-cities', help='Search for cities')
+    search_cities_parser.add_argument('search_term', type=str, help='Search term')
+    search_cities_parser.set_defaults(func=search_cities)
+
     # Create Place command
     create_place_parser = subparsers.add_parser('create-place', help='Create a new place')
     create_place_parser.add_argument('name', type=str, help='Place name')
@@ -68,6 +93,11 @@ if __name__ == '__main__':
     list_places_parser = subparsers.add_parser('list-places', help='List all places')
     list_places_parser.add_argument('city_id', type=int, nargs='?', help='ID of the city')
     list_places_parser.set_defaults(func=list_places)
+
+    # Search Places command
+    search_places_parser = subparsers.add_parser('search-places', help='Search for places')
+    search_places_parser.add_argument('search_term', type=str, help='Search term')
+    search_places_parser.set_defaults(func=search_places)
 
     args = parser.parse_args()
 

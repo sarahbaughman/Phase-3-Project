@@ -2,7 +2,7 @@ import sqlite3
 
 class Place:
     def __init__(self):
-        self.conn = sqlite3.connect('travel_database.db')
+        self.conn = sqlite3.connect('database.db')
         self.cursor = self.conn.cursor()
 
     def add_place(self, name, city_id):
@@ -27,3 +27,14 @@ class Place:
 
     def close_connection(self):
         self.conn.close()
+
+    def search_places(self, search_term):
+        self.cursor.execute("SELECT * FROM places WHERE name LIKE ?", ('%' + search_term + '%',))
+        places = self.cursor.fetchall()
+
+        if places:
+            print("Search results:")
+            for place in places:
+                print(f"- {place[1]} (City ID: {place[2]})")
+        else:
+            print("No places found.")

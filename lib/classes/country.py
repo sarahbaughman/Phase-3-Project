@@ -23,3 +23,14 @@ class Country:
 
     def close_connection(self):
         self.conn.close()
+
+    def search_countries(self, search_term):
+        self.cursor.execute("SELECT * FROM countries WHERE name LIKE ?", ('%' + search_term + '%',))
+        countries = self.cursor.fetchall()
+
+        if countries:
+            print("Search results:")
+            for country in countries:
+                print(f"- {country[1]}")
+        else:
+            print("No countries found.")
